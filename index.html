@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Search provider suggestion</title>
+  <style type="text/css">
+  body {
+    font-family: sans-serif;
+  }
+  input {
+    display: block;
+    width: 500px;
+  }
+  </style>
+</head>
+<body>
+
+<p>Start typing »google.com« and then press enter</p>
+
+<h1>Type 1</h1>
+<input id="ab1" type="text" placeholder="Search or enter address">
+
+<h1>Type 2</h1>
+<input id="ab2" type="text" placeholder="Search or enter address">
+
+
+<script type="text/javascript">
+  var ab1 = document.getElementById('ab1');
+  ab1.addEventListener('input', function() {
+    var v = ab1.value;
+    if (v !== '' && v === "google.com".substring(0, v.length)) {
+      ab1.value = 'google.com';
+      ab1.setSelectionRange(v.length ,ab1.value.length);
+      ab1.focus();
+    }
+  });
+
+  var longURL = "google.com/search?q=&ie=utf-8&oe=utf-8&rls=org.mozilla:en-US:official&client=firefox-a&channel=sb&gfe_rd=ctrl&ei=scILU4r9BsqV8Qe40YD4BQ&gws_rd=cr";
+
+  var ab2 = document.getElementById('ab2');
+  ab2.addEventListener('input', function() {
+    var v = ab2.value;
+    if (v !== '' && v === longURL.substring(0, v.length)) {
+      ab2.value = longURL;
+      ab2.setSelectionRange(v.length ,ab2.value.length);
+      ab2.focus();
+      window.setTimeout(function() {
+        ab2.scrollLeft = 0;
+      }, 0);
+    }
+  });
+
+  ab1.addEventListener('keypress', function(e) {
+    if (e.keyCode === 13) {
+      ab1.value = longURL;
+      window.setTimeout(function() {
+        ab1.scrollLeft = 0;
+      }, 0);
+    }
+  });
+</script>
+</body>
+</html>
