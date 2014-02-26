@@ -96,6 +96,14 @@
       }, 0);
     }
   });
+
+  document.addEventListener('keypress', function(e) {
+    if (e.keyCode === 13) {
+      dd1.style.opacity = dd2.style.opacity = 0;
+      ab1.blur();
+      ab2.blur();
+    }
+  });
 </script>
 </body>
 </html>
