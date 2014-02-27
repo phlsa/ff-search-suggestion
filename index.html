@@ -46,15 +46,6 @@ Assuming that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=951624">bug 
   </div>
 </div>
 
-<h2>Type 2</h2>
-<input id="ab2" type="text" placeholder="Search or enter address">
-<div id="dd2" class="dropdown">
-  <div class="list-entry">
-    Search the web<br>
-    <span>google.com</span>
-  </div>
-</div>
-
 
 <script type="text/javascript">
   var ab1 = document.getElementById('ab1');
@@ -73,22 +64,6 @@ Assuming that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=951624">bug 
 
   var longURL = "google.com/search?q=&ie=utf-8&oe=utf-8&rls=org.mozilla:en-US:official&client=firefox-a&channel=sb&gfe_rd=ctrl&ei=scILU4r9BsqV8Qe40YD4BQ&gws_rd=cr";
 
-  var ab2 = document.getElementById('ab2');
-  var dd2 = document.getElementById('dd2');
-  ab2.addEventListener('input', function() {
-    var v = ab2.value;
-    if (v !== '' && v === longURL.substring(0, v.length)) {
-      ab2.value = longURL;
-      ab2.setSelectionRange(v.length ,ab2.value.length);
-      ab2.focus();
-      window.setTimeout(function() {
-        ab2.scrollLeft = 0;
-      }, 0);
-      dd2.style.opacity = 1;
-    } else {
-      dd2.style.opacity = 0;
-    }
-  });
 
   ab1.addEventListener('keypress', function(e) {
     if (e.keyCode === 13) {
@@ -96,14 +71,8 @@ Assuming that <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=951624">bug 
       window.setTimeout(function() {
         ab1.scrollLeft = 0;
       }, 0);
-    }
-  });
-
-  document.addEventListener('keypress', function(e) {
-    if (e.keyCode === 13) {
-      dd1.style.opacity = dd2.style.opacity = 0;
+      dd1.style.opacity = 0;
       ab1.blur();
-      ab2.blur();
     }
   });
 </script>
