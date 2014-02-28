@@ -19,11 +19,12 @@
     padding: 4px 0;
   }
   .list-entry {
-    color: #fff;
     padding: 4px;
-    background-color: #366ff1;
     font-size: 13px;
-    font-weight: bold;
+  }
+  .active {
+    background-color: #366ff1;
+    color: #fff;
   }
   .list-entry span {
     font-weight: normal;
@@ -38,6 +39,10 @@
     top: 3px;
     margin-top: -3px;
   }
+  p {
+    max-width: 500px;
+    line-height: 1.2em;
+  }
   </style>
 </head>
 <body>
@@ -50,19 +55,46 @@
 
 <input id="ab1" type="text" placeholder="Search or enter address">
 <div id="dd1" class="dropdown">
-  <div class="list-entry">
+  <div class="list-entry active" id="entry-search">
     <img src="google-g-logo.png">
-    Search the web<br>
+    <strong>Search the web</strong><br>
     <span>google.com</span>
   </div>
+  <div class="list-entry active" id="entry-visit" style="display:none">
+    <img src="google-g-logo.png">
+    Visit <strong>google.com</strong><br>
+    <span>&nbsp;</span>
+  </div>
+  <div class="list-entry" id="entry-search-generic">
+    <img src="google-g-logo.png">
+    Search for <strong>goo</strong><br>
+    <span>&nbsp;</span>
+  </div>
 </div>
+
+<p>
+  Notice how normally, an entry called »Search the Web« is selected. This will autocomplete the URL to google.com plus our affiliate code.</p>
+<p>
+  When the user types out google.com, the default entry changes to just »Visit google.com«, which is just the normal entry for visiting generic web pages. As such, it doesn't add the affiliate code.
+</p>
 
 
 <script type="text/javascript">
   var ab1 = document.getElementById('ab1');
   var dd1 = document.getElementById('dd1');
+  var entryVisit = document.getElementById('entry-visit');
+  var entrySearch = document.getElementById('entry-search');
+  var entrySearchGeneric = document.getElementById('entry-search-generic');
+
   ab1.addEventListener('input', function() {
     var v = ab1.value;
+    if (v === 'google.com') {
+      entrySearch.style.display = 'none';
+      entryVisit.style.display = 'block';
+    } else {
+      entrySearch.style.display = 'block';
+      entryVisit.style.display = 'none';
+    }
     if (v !== '' && v === "google.com".substring(0, v.length)) {
       ab1.value = 'google.com';
       ab1.setSelectionRange(v.length ,ab1.value.length);
@@ -78,7 +110,9 @@
 
   ab1.addEventListener('keypress', function(e) {
     if (e.keyCode === 13) {
-      ab1.value = longURL;
+      if (entrySearch.style.display === 'block') {
+        ab1.value = longURL;
+      }
       window.setTimeout(function() {
         ab1.scrollLeft = 0;
       }, 0);
